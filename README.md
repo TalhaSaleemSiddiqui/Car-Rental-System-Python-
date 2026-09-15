@@ -128,7 +128,7 @@ total_opreations
 
 ## Input Handling
 
-The program checks several user selections and asks the user again when an invalid but numeric menu/car/insurance selection is entered.
+The program checks several user selections and asks the user again when an invalid menu/car/insurance selection is entered.
 
 Supported selections include:
 
