@@ -72,15 +72,30 @@ def more_options():
 #Selecting a car for rent
 def car_rent():
     menu(available_cars_data)
-    car_type = int(input('Enter Car Type: '))
+    
+    try:
+        car_type = int(input('Enter Car Type: '))
+    except ValueError:
+        print("Invalid input! Please enter a valid number.")
+        return car_rent()
+        
     if (car_type <= 0 or car_type > len(available_cars_data) or available_cars_data[car_type - 1]["available"] <= 0):
         print(f'No Car of type {car_type} is available')
         return car_rent()
-    no_days = int(input('Enter the no of days: '))
+    
+    
+    try:
+        no_days = int(input('Enter the no of days: '))
+    except ValueError:
+        print("Invalid input! Please enter a valid number for days.")
+        return car_rent()
+        
     ins_type = input(
         "Enter L for liability and F for full insurance: ").upper()
     rent_cost = available_cars_data[car_type - 1]["per_day_price"] * no_days
     ins_cost = 0
+    
+    
     if (ins_type == 'L'):
         ins_cost = available_cars_data[car_type - 1]["liability_inc_per_day"]
     elif (ins_type == 'F'):
@@ -88,6 +103,7 @@ def car_rent():
     else:
         print("Invalid Insurance type")
         return car_rent()
+        
     tax = rent_cost * 0.05
     total_bill = rent_cost + ins_cost + tax
 
@@ -118,15 +134,23 @@ def car_return():
     for data in available_cars_data:
         i += 1
         print(f"{i}: {data['model']}")
-    car_type = int(input('Enter car type: '))
+        
+    try:
+        car_type = int(input('Enter car type: '))
+    except ValueError:
+        print("Invalid input! Please enter a valid number.")
+        return car_return()
+        
     if car_type > len(available_cars_data):
         print(f'No Car of type {car_type} is available')
         return car_return()
+        
     if available_cars_data[car_type - 1]["available"] < car_rental_db[car_type - 1]["available"]:
         available_cars_data[car_type - 1]["available"] += 1
     else:
         print("Invalid car return")
         return more_options()
+        
     menu(available_cars_data)
     more_options()
 
